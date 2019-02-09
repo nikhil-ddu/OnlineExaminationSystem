@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Advertisements>
+  <Ad>
+    <ImageUrl>images/gate1.jpg</ImageUrl>
+  </Ad>
+  <Ad>
+    <ImageUrl>images/gate2.jpg</ImageUrl>
+  </Ad>
+  <Ad>
+    <ImageUrl>images/gate3.jpg</ImageUrl>
+  </Ad>
+</Advertisements>

@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="db1" Class="DataClasses2DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\db1.mdf;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="db1ConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.exam_master" Member="exam_masters">
+    <Type Name="exam_master">
+      <Column Name="exam_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="exam_type" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="exam_name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="exam_info" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="timelimit" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="marks_onright" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="marks_onwrong" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="total_que" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="exam_master_question_master" Member="question_masters" ThisKey="exam_id" OtherKey="exam_id" Type="question_master" />
+      <Association Name="exam_master_gives_exam" Member="gives_exams" ThisKey="exam_id" OtherKey="exam_id" Type="gives_exam" />
+    </Type>
+  </Table>
+  <Table Name="dbo.question_master" Member="question_masters">
+    <Type Name="question_master">
+      <Column Name="que_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="que" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="op1" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="op2" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="op3" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="op4" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="right_answer" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="exam_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="exam_master_question_master" Member="exam_master" ThisKey="exam_id" OtherKey="exam_id" Type="exam_master" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.role_master" Member="role_masters">
+    <Type Name="role_master">
+      <Column Name="role_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="role_name" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="description" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Association Name="role_master_user_master" Member="user_masters" ThisKey="role_name" OtherKey="role_name" Type="user_master" />
+    </Type>
+  </Table>
+  <Table Name="dbo.user_master" Member="user_masters">
+    <Type Name="user_master">
+      <Column Name="username" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="password" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="sequrity_que" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="sequrity_ans" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="role_name" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Association Name="user_master_update_exam" Member="update_exams" ThisKey="username" OtherKey="username" Type="update_exam" />
+      <Association Name="user_master_gives_exam" Member="gives_exams" ThisKey="username" OtherKey="username" Type="gives_exam" />
+      <Association Name="role_master_user_master" Member="role_master" ThisKey="role_name" OtherKey="role_name" Type="role_master" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.update_exam" Member="update_exams">
+    <Type Name="update_exam">
+      <Column Name="username" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="exam_name" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="description" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="date" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="user_master_update_exam" Member="user_master" ThisKey="username" OtherKey="username" Type="user_master" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.gives_exam" Member="gives_exams">
+    <Type Name="gives_exam">
+      <Column Name="username" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="exam_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="exam_name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="exam_date" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="marks_obtained" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="right_que" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="wrong_que" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="total_marks" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Association Name="exam_master_gives_exam" Member="exam_master" ThisKey="exam_id" OtherKey="exam_id" Type="exam_master" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="user_master_gives_exam" Member="user_master" ThisKey="username" OtherKey="username" Type="user_master" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+</Database>
