@@ -1,2 +1,2 @@
-* linguist-vendored
-*.js linguist-vendored=false
+OnlineExaminationSystem/OnlineExaminationSystem/Scripts/* linguist-vendored
+OnlineExaminationSystem/OnlineExaminationSystem/css/* linguist-vendored
